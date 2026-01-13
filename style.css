@@ -517,10 +517,31 @@ body{
     flex-direction: column;
     gap: 12px;
   }
+/*Mobile phone footer responsiveness*/
+  @media (max-width: 768px) {
+
+  footer {
+    padding: 2rem 1rem;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .footer-content p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+}
+
 
   .team-grid {
     grid-template-columns: 1fr;
   }
 }
+
 
 
