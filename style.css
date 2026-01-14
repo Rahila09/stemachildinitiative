@@ -517,6 +517,12 @@ body{
     flex-direction: column;
     gap: 12px;
   }
+
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /*Mobile phone footer responsiveness*/
   @media (max-width: 768px) {
 
@@ -538,12 +544,7 @@ body{
 }
 
 
-  .team-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-*/phone responsiveness for programs
+*/phone responsiveness for programs*/
 
 @media (max-width: 768px) {
 
@@ -559,6 +560,7 @@ body{
   }
 
 }
+
 
 
 
