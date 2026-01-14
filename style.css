@@ -547,18 +547,19 @@ body{
 
 @media (max-width: 768px) {
 
-  .programs-grid {
+  .cards {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
   }
 
-  .program-card {
+  .cards{
     width: 100%;
     min-height: auto;
   }
 
 }
+
 
 
 
