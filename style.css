@@ -530,13 +530,13 @@ body{
     padding: 2rem 1rem;
   }
 
-  .footer {
+  .footer-content {
     flex-direction: column;
     text-align: center;
     gap: 1rem;
   }
 
-  .footer{
+  .footer-content{
     font-size: 0.9rem;
     line-height: 1.4;
   }
@@ -554,12 +554,13 @@ body{
     gap: 1.5rem;
   }
 
-  .cards{
+  .card {
     width: 100%;
     min-height: auto;
   }
 
 }
+
 
 
 
