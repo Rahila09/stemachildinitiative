@@ -522,6 +522,34 @@ body{
     grid-template-columns: 1fr;
   }}
 
+*/ footer social content
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.footer-socials a {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: #0b4f4a; /* STEMaChild primary color */
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.footer-socials a:hover {
+  background-color: #f4b400; /* accent color */
+  color: #0b4f4a;
+  transform: translateY(-3px);
+}
+
 
 
 
