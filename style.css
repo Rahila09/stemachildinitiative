@@ -112,7 +112,26 @@ body{
   border-radius:8px;
   text-decoration:none;
 }
+/* PROGRAM IMAGE STRIP */
+.program-images-row {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
 
+.program-images-row img {
+  width: 30%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+.program-images-row img:hover {
+  transform: scale(1.03);
+}
 .nav-toggle{display:none;background:none;border:0;font-size:20px}
 
 .hero{
