@@ -1,7 +1,4 @@
-  <!-- =====================================================
-       JAVASCRIPT
-  ===================================================== -->
-  <script>
+
     // ── Sticky nav: add .scrolled when page is scrolled ──────────────────
     const nav = document.getElementById('mainNav');
     window.addEventListener('scroll', () => {
@@ -130,4 +127,4 @@
         this.style.color = '';
       }, 3000);
     });
-  </script>
+  
