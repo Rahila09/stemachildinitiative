@@ -127,4 +127,10 @@
         this.style.color = '';
       }, 3000);
     });
+
+@media (max-width: 768px) {
+  .partners-logos img {
+    max-width: 100px;
+  }
+}
   
