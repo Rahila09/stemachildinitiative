@@ -1224,43 +1224,6 @@
       line-height: 1.55;
     }
 
-/* === PARTNERS SECTION === */
-#partners {
-  text-align: center;
-}
-
-#partners h2 {
-  margin-bottom: 10px;
-}
-
-#partners .muted {
-  margin-bottom: 30px;
-  color: var(--muted);
-}
-
-.partners-logos {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-}
-
-/* Logos */
-.partners-logos img {
-  max-width: 140px;
-  height: auto;
-  opacity: 0.8;
-  transition: all 0.3s ease;
-  filter: grayscale(100%);
-}
-
-.partners-logos img:hover {
-  opacity: 1;
-  filter: grayscale(0%);
-  transform: scale(1.05);
-}
-
     /* ── CTA ── */
     .cta-section {
       padding: 100px 0;
