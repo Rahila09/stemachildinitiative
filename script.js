@@ -1,130 +1,90 @@
 
-    // ── Sticky nav: add .scrolled when page is scrolled ──────────────────
-    const nav = document.getElementById('mainNav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 40);
-    }, { passive: true });
+// ── Sticky nav ──────────────────────────────────────────────────────────────
+const nav = document.getElementById('mainNav');
+if (nav) {
+  const updateNav = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+  updateNav();
+  window.addEventListener('scroll', updateNav, { passive: true });
+}
 
-    // ── Mobile menu toggle ────────────────────────────────────────────────
-    const toggle = document.getElementById('mobileToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    toggle.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
-    });
-    // Close when a link is clicked
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
-    });
+// ── Mobile menu ──────────────────────────────────────────────────────────────
+const toggle = document.getElementById('mobileToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+if (toggle && mobileMenu) {
+  toggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  mobileMenu.querySelectorAll('a').forEach(link =>
+    link.addEventListener('click', () => mobileMenu.classList.remove('open'))
+  );
+}
 
-    // ── Scroll reveal ─────────────────────────────────────────────────────
-    const revealEls = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          // Stagger siblings within the same parent
-          const siblings = Array.from(entry.target.parentElement.querySelectorAll('.reveal'));
-          const idx = siblings.indexOf(entry.target);
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, idx * 80);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    revealEls.forEach(el => observer.observe(el));
-
-    // ── Smooth nav link active state ──────────────────────────────────────
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(s => {
-        if (window.scrollY >= s.offsetTop - 100) current = s.id;
-      });
-      navLinks.forEach(a => {
-        a.style.color = '';
-        if (a.getAttribute('href') === '#' + current) {
-          a.style.color = 'var(--gold)';
-        }
-      });
-    }, { passive: true });
-
-    // ── Counter animation for impact stats ───────────────────────────────
-    function animateCounter(el, target, suffix = '', duration = 1600) {
-      let start = 0;
-      const step = target / (duration / 16);
-      const timer = setInterval(() => {
-        start += step;
-        if (start >= target) {
-          el.textContent = target.toLocaleString() + suffix;
-          clearInterval(timer);
-        } else {
-          el.textContent = Math.floor(start).toLocaleString() + suffix;
-        }
-      }, 16);
+// ── Nav active state (multi-page) ────────────────────────────────────────────
+(function () {
+  const page = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-links a, .nav-mobile-menu a').forEach(a => {
+    const href = (a.getAttribute('href') || '').split('#')[0];
+    if (href && href === page && !a.classList.contains('nav-cta')) {
+      a.classList.add('nav-active');
     }
+  });
+})();
 
-    // Trigger counters when stats section is visible
-    const statsObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const nums = entry.target.querySelectorAll('.stat-banner-num');
-          // These are text-based, skip auto-animation for '<2%' style values
-          statsObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    const statBanner = document.querySelector('.stat-banner');
-    if (statBanner) statsObserver.observe(statBanner);
-
-    // ── Form submission handler ───────────────────────────────────────────
-    function handleFormSubmit() {
-      const email = document.getElementById('email').value;
-      const name  = document.getElementById('firstName').value;
-      if (!email || !name) {
-        alert('Please fill in your name and email address.');
-        return;
+// ── Scroll reveal ─────────────────────────────────────────────────────────────
+const revealEls = document.querySelectorAll('.reveal');
+if (revealEls.length) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const siblings = Array.from(entry.target.parentElement.querySelectorAll('.reveal'));
+        const idx = siblings.indexOf(entry.target);
+        setTimeout(() => entry.target.classList.add('visible'), idx * 80);
+        observer.unobserve(entry.target);
       }
-      // Replace with actual form submission logic (e.g. Formspree, EmailJS)
-      const btn = document.querySelector('.contact-form .btn-navy');
-      btn.textContent = '✓ Message Sent!';
-      btn.style.background = '#1A6A3A';
-      btn.disabled = true;
-      setTimeout(() => {
-        btn.innerHTML = 'Send Message <svg viewBox="0 0 16 16" fill="none" width="16" height="16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
-        btn.style.background = '';
-        btn.disabled = false;
-      }, 3000);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+}
+
+// ── CTA card click: navigate to contact page ─────────────────────────────────
+document.querySelectorAll('.cta-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const title = card.querySelector('.cta-card-title').textContent;
+    const topic = title.includes('Donat') ? 'donation'
+                : title.includes('Partner') ? 'csr'
+                : 'volunteer';
+    window.location.href = `contact.html?topic=${topic}`;
+  });
+});
+
+// ── Pre-fill contact form from URL params ─────────────────────────────────────
+const urlTopic = new URLSearchParams(window.location.search).get('topic');
+const subjectEl = document.getElementById('subject');
+if (urlTopic && subjectEl) subjectEl.value = urlTopic;
+
+// ── Newsletter ────────────────────────────────────────────────────────────────
+document.querySelectorAll('.newsletter-submit').forEach(btn => {
+  btn.addEventListener('click', function () {
+    const input = this.closest('.newsletter-form').querySelector('.newsletter-input');
+    if (!input.value || !input.value.includes('@')) {
+      input.style.borderColor = 'var(--gold)';
+      input.focus();
+      return;
     }
+    this.textContent = '✓ Subscribed!';
+    this.style.background = '#1A6A3A';
+    this.style.color = 'white';
+    input.value = '';
+    setTimeout(() => {
+      this.textContent = 'Subscribe';
+      this.style.background = '';
+      this.style.color = '';
+    }, 3000);
+  });
+});
 
-    // ── CTA card click handlers ───────────────────────────────────────────
-    document.querySelectorAll('.cta-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const title = card.querySelector('.cta-card-title').textContent;
-        document.getElementById('subject').value =
-          title.includes('Donat') ? 'Donating to the Foundation' :
-          title.includes('Partner') ? 'Corporate / CSR Partnership' :
-          'Volunteering';
-        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-      });
-    });
-
-    // ── Newsletter form ───────────────────────────────────────────────────
-    document.querySelector('.newsletter-submit').addEventListener('click', function() {
-      const input = document.querySelector('.newsletter-input');
-      if (!input.value || !input.value.includes('@')) {
-        input.style.borderColor = 'var(--gold)';
-        input.focus();
-        return;
-      }
-      this.textContent = '✓ Subscribed!';
-      this.style.background = '#1A6A3A';
-      this.style.color = 'white';
-      input.value = '';
-      setTimeout(() => {
-        this.textContent = 'Subscribe';
-        this.style.background = '';
-        this.style.color = '';
-      }, 3000);
-    });
-
+// ── Stat banner observer ──────────────────────────────────────────────────────
+const statBanner = document.querySelector('.stat-banner');
+if (statBanner) {
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  }, { threshold: 0.3 }).observe(statBanner);
+}
