@@ -177,6 +177,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: nowrap;
       height: 72px;
       max-width: var(--max-w);
       margin: 0 auto;
@@ -201,17 +202,18 @@
       font-family: var(--font-display);
       font-size: 0.95rem;
       font-weight: 700;
-      color: var(--navy);
+      color: var(--white);
       line-height: 1.2;
     }
     .nav-logo-sub {
       font-size: 0.68rem;
       font-weight: 500;
-      color: var(--gray-400);
+      color: rgba(255,255,255,0.6);
       letter-spacing: 0.05em;
       text-transform: uppercase;
     }
     .nav.scrolled .nav-logo-name { color: var(--navy-dark); }
+    .nav.scrolled .nav-logo-sub { color: var(--gray-400); }
 
     .nav-links {
       display: flex;
@@ -256,6 +258,10 @@
       border-top: 1px solid var(--gray-200);
     }
     .nav-mobile-menu.open { display: flex; }
+    @media (min-width: 769px) {
+      .nav-mobile-menu,
+      .nav-mobile-menu.open { display: none !important; }
+    }
     .nav-mobile-menu a {
       font-size: 0.95rem;
       font-weight: 500;
