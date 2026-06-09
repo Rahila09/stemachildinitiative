@@ -19,10 +19,12 @@ if (toggle && mobileMenu) {
 
 // ── Nav active state (multi-page) ────────────────────────────────────────────
 (function () {
-  const page = window.location.pathname.split('/').pop() || 'index.html';
+  const segment = window.location.pathname.split('/').filter(Boolean)[0] || '';
   document.querySelectorAll('.nav-links a, .nav-mobile-menu a').forEach(a => {
-    const href = (a.getAttribute('href') || '').split('#')[0];
-    if (href && href === page && !a.classList.contains('nav-cta')) {
+    if (a.classList.contains('nav-cta')) return;
+    const href = a.getAttribute('href') || '';
+    const linkSegment = href.replace(/^\//, '').split('/')[0];
+    if (linkSegment && linkSegment === segment) {
       a.classList.add('nav-active');
     }
   });
@@ -51,7 +53,7 @@ document.querySelectorAll('.cta-card').forEach(card => {
     const topic = title.includes('Donat') ? 'donation'
                 : title.includes('Partner') ? 'csr'
                 : 'volunteer';
-    window.location.href = `contact.html?topic=${topic}`;
+    window.location.href = `/contact/?topic=${topic}`;
   });
 });
 
