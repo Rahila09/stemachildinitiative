@@ -1,4 +1,3 @@
-
 // ── Sticky nav ──────────────────────────────────────────────────────────────
 const nav = document.getElementById('mainNav');
 if (nav) {
@@ -93,3 +92,21 @@ if (statBanner) {
     if (e.isIntersecting) e.target.classList.add('visible');
   }, { threshold: 0.3 }).observe(statBanner);
 }
+
+// ── Cookie consent banner ────────────────────────────────────────────────────
+(function () {
+  const banner = document.getElementById('cookieBanner');
+  if (!banner) return;
+  const KEY = 'stemed_cookie_consent';
+  if (!localStorage.getItem(KEY)) {
+    setTimeout(() => banner.classList.add('visible'), 800);
+  }
+  document.getElementById('cookieAccept').addEventListener('click', function () {
+    localStorage.setItem(KEY, 'accepted');
+    banner.classList.remove('visible');
+  });
+  document.getElementById('cookieDecline').addEventListener('click', function () {
+    localStorage.setItem(KEY, 'declined');
+    banner.classList.remove('visible');
+  });
+})();
