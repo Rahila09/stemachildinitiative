@@ -14,8 +14,8 @@ const stats = [
 ];
 
 const impactStats = [
-  { value: "130+", label: "Children reached in Program" },
-  { value: "8", label: "Weeks of weekly hands-on sessions" },
+  { value: "450+", label: "Children reached in Program" },
+  { value: "4", label: "Partner schools" },
   { value: "3", label: "STEM Clubs launched" },
   { value: "10K+", label: "Children targeted by 2030 across Nigeria" },
 ];
